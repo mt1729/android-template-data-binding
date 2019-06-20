@@ -2,6 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+def getProperties = { filePath ->
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file(filePath).newDataInputStream())
+    return properties
+}
+
 android {
     compileSdkVersion 28
 
@@ -15,12 +21,35 @@ android {
     }
 
     buildTypes {
+        debug {
+            getProperties('config.dev.properties').each {prop ->
+                // TODO: - Dynamic type
+                buildConfigField 'String', prop.key, prop.value
+            }
+        }
+
         release {
+            getProperties('config.prod.properties').each {prop ->
+                // TODO: - Dynamic type
+                buildConfigField 'String', prop.key, prop.value
+            }
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    dataBinding {
+        enabled = true
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
+
+// For use with Parcelize
+androidExtensions { experimental = true }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -31,7 +60,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // Architecture Components
-//    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'android.arch.navigation:navigation-fragment-ktx:1.0.0'
