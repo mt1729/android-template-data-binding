@@ -22,16 +22,22 @@ android {
 
     buildTypes {
         debug {
-            getProperties('config.dev.properties').each {prop ->
-                // TODO: - Dynamic type
-                buildConfigField 'String', prop.key, prop.value
+            String propertiesPath = 'config.dev.properties'
+            if (project.rootProject.file(propertiesPath).exists()) {
+                getProperties(propertiesPath).each { prop ->
+                    // TODO: - Dynamic type
+                    buildConfigField 'String', prop.key, prop.value
+                }
             }
         }
 
         release {
-            getProperties('config.prod.properties').each {prop ->
-                // TODO: - Dynamic type
-                buildConfigField 'String', prop.key, prop.value
+            String propertiesPath = 'config.prod.properties'
+            if (project.rootProject.file(propertiesPath).exists()) {
+                getProperties(propertiesPath).each { prop ->
+                    // TODO: - Dynamic type
+                    buildConfigField 'String', prop.key, prop.value
+                }
             }
 
             minifyEnabled false
