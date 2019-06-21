@@ -26,7 +26,6 @@ android {
             String propertiesPath = 'config.dev.properties'
             if (project.rootProject.file(propertiesPath).exists()) {
                 getProperties(propertiesPath).each { prop ->
-                    // TODO: - Dynamic type
                     buildConfigField 'String', prop.key, prop.value
                 }
             }
@@ -36,7 +35,6 @@ android {
             String propertiesPath = 'config.prod.properties'
             if (project.rootProject.file(propertiesPath).exists()) {
                 getProperties(propertiesPath).each { prop ->
-                    // TODO: - Dynamic type
                     buildConfigField 'String', prop.key, prop.value
                 }
             }
