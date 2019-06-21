@@ -27,8 +27,8 @@ class LoginFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         vm.loginSuccess.observe(viewLifecycleOwner, Observer {
-//            val directions = LoginFragmentDirections.fromLogintoHome(it)
-//            findNavController().navigate(directions)
+            val directions = LoginFragmentDirections.fromLoginToHome(it)
+            findNavController().navigate(directions)
         })
         vm.loginFailure.observe(viewLifecycleOwner, Observer {
             Snackbar.make(binding.root, it, Snackbar.LENGTH_SHORT).show()

@@ -10,7 +10,9 @@ class LoginRepository(
 ) {
     suspend fun login(username: String, password: String): Result<User> {
         try {
-            val res = api.login(username, password)
+            val reqBody = RestAPI.LoginBody(username, password)
+            val res = api.login(reqBody)
+
             res.body()?.let {
                 return@login Result.Success(it)
             }

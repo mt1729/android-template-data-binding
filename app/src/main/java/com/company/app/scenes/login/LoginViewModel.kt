@@ -17,8 +17,9 @@ class LoginViewModel(
     private val loginRepo: LoginRepository,
     private val coroutineCtx: CoroutineContext
 ) : ViewModel() {
-    private val _username = MutableLiveData<String>()
-    private val _password = MutableLiveData<String>()
+    // TODO: - Populate username from SharedPreferences subclass (inject subclass through DI)
+    private val _username = MutableLiveData<String>().also { it.value = "" }
+    private val _password = MutableLiveData<String>().also { it.value = "" }
     private val _loginRequest = MutableLiveData<Boolean>()
     private val _loginSuccess = LiveEvent<User>()
     private val _loginFailure = LiveEvent<@StringRes Int>()
@@ -31,6 +32,11 @@ class LoginViewModel(
 
     fun login(username: String, password: String) = viewModelScope.launch(coroutineCtx) {
         if (_loginRequest.value == true) { return@launch }
+
+        // TODO: - Test network security config on devices between 21 and 24
+
+        // TODO: - Empty username unit test
+        // TODO: - Empty password unit test
 
         // TODO: - Wrap all request/success/failure models in a 'LiveDataStatus' class
         _loginRequest.postValue(true)

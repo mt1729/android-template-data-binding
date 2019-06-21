@@ -6,5 +6,7 @@
     <string name="login_button_title">Login</string>
     <string name="login_failed">There seems to be an error with your username or password.</string>
 
+    <string name="home_welcome_message">Hello, %s!</string>
+
     <string name="error_generic">Oops! Something went wrong on our end. Please try again later.</string>
 </resources>
