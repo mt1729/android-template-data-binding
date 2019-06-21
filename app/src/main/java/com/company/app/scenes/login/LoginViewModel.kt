@@ -33,8 +33,6 @@ class LoginViewModel(
     fun login(username: String, password: String) = viewModelScope.launch(coroutineCtx) {
         if (_loginRequest.value == true) { return@launch }
 
-        // TODO: - Test network security config on devices between 21 and 24
-
         // TODO: - Empty username unit test
         // TODO: - Empty password unit test
 
