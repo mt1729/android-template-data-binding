@@ -89,8 +89,7 @@ dependencies {
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.koin:koin-test:2.0.1'
-//    testImplementation 'androidx.test:core:1.2.0'
-//    testImplementation 'android.arch.core:core-testing:1.1.1'
+    testImplementation 'android.arch.core:core-testing:1.1.1'
 
     androidTestImplementation 'org.koin:koin-test:2.0.1'
     androidTestImplementation 'androidx.test:rules:1.2.0'

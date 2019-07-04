@@ -8,7 +8,6 @@ class MyPreferenceStore(
 ) : PreferenceStore {
     companion object {
         private const val NAME = "NAME"
-
         private const val USERNAME_KEY = "USERNAME_KEY"
     }
 

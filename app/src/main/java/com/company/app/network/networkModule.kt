@@ -9,12 +9,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 internal val networkModule = module {
     single<OkHttpClient> { OkHttpClient.Builder().build() }
-    single<RestAPI> {
+    single<RestApi> {
         return@single Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_ENDPOINT_URL)
             .client(get())
             .addConverterFactory(GsonConverterFactory.create(Gson()))
             .build()
-            .create(RestAPI::class.java)
+            .create(RestApi::class.java)
     }
 }

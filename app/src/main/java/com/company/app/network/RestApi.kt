@@ -6,7 +6,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 
-interface RestAPI {
+interface RestApi {
     @POST("/sessions")
     suspend fun login(@Body body: LoginBody): Response<User>
     data class LoginBody(val username: String, val password: String)
