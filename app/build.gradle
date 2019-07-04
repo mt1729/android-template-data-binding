@@ -72,8 +72,8 @@ dependencies {
     // Architecture Components
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'android.arch.navigation:navigation-fragment-ktx:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0-alpha01'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha01'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0-alpha02'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha02'
 
     // LeakCanary
     implementation 'com.squareup.leakcanary:leakcanary-android:2.0-alpha-2'
