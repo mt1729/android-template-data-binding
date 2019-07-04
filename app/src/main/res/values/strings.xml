@@ -5,6 +5,7 @@
     <string name="login_password_hint">Password</string>
     <string name="login_button_title">Login</string>
     <string name="login_failed">There seems to be an error with your username or password.</string>
+    <string name="login_fields_required">Username and password are required to login.</string>
 
     <string name="home_welcome_message">Hello, %s!</string>
 

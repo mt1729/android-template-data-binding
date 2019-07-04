@@ -68,7 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
-                android:onClick="@{() -> vm.login(vm.username, vm.password)}"
+                android:onClick="@{() -> vm.login()}"
                 android:enabled="@{!safeUnbox(vm.loginRequest) &amp;&amp; !vm.username.isEmpty() &amp;&amp; !vm.password.isEmpty()}"
                 app:layout_constraintTop_toBottomOf="@id/login_password"
                 app:layout_constraintStart_toStartOf="parent"

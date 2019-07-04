@@ -30,13 +30,20 @@ class LoginViewModel(
     val loginSuccess: LiveData<User> = _loginSuccess
     val loginFailure: LiveData<Int> = _loginFailure
 
-    fun login(username: String, password: String) = viewModelScope.launch(coroutineCtx) {
+    fun login() = viewModelScope.launch(coroutineCtx) {
         if (_loginRequest.value == true) { return@launch }
 
         // TODO: - Empty username unit test
         // TODO: - Empty password unit test
 
         // TODO: - Wrap all request/success/failure models in a 'LiveDataStatus' class
+        val username = _username.value
+        val password = _password.value
+        if (username == null || username.isBlank() || password == null || password.isBlank()) {
+            _loginFailure.postValue(R.string.login_fields_required)
+            return@launch
+        }
+
         _loginRequest.postValue(true)
         val res = loginRepo.login(username, password)
         _loginRequest.postValue(false)
