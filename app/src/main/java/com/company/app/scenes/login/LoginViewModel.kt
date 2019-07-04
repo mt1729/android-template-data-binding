@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.company.app.R
+import com.company.app.app.PreferenceStore
 import com.company.app.database.User
 import com.company.app.network.Result
 import com.company.app.network.StatusCodes
@@ -14,11 +15,12 @@ import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 class LoginViewModel(
+    private val prefs: PreferenceStore,
     private val loginRepo: LoginRepository,
     private val coroutineCtx: CoroutineContext
 ) : ViewModel() {
     // TODO: - Populate username from SharedPreferences subclass (inject subclass through DI)
-    private val _username = MutableLiveData<String>().also { it.value = "" }
+    private val _username = MutableLiveData<String>().also { it.value = prefs.username ?: "" }
     private val _password = MutableLiveData<String>().also { it.value = "" }
     private val _loginRequest = MutableLiveData<Boolean>()
     private val _loginSuccess = LiveEvent<User>()
