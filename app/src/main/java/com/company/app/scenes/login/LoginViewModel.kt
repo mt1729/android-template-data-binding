@@ -19,7 +19,6 @@ class LoginViewModel(
     private val loginRepo: LoginRepository,
     private val coroutineCtx: CoroutineContext
 ) : ViewModel() {
-    // TODO: - Populate username from SharedPreferences subclass (inject subclass through DI)
     private val _username = MutableLiveData<String>().also { it.value = prefs.username ?: "" }
     private val _password = MutableLiveData<String>().also { it.value = "" }
     private val _loginRequest = MutableLiveData<Boolean>()
