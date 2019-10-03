@@ -38,7 +38,7 @@
                 android:id="@+id/login_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:enabled="@{!vm.loginRequest}"
+                android:enabled="@{!safeUnbox(vm.loginRequest)}"
                 android:hint="@string/login_username_hint"
                 android:inputType="text"
                 android:maxLines="1"
@@ -49,14 +49,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/login_header"
             />
-            <!-- TODO: - Add BindingAdapter for keyboard OK handling -->
             <EditText
                 android:id="@+id/login_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:enabled="@{!vm.loginRequest}"
+                android:enabled="@{!safeUnbox(vm.loginRequest)}"
                 android:hint="@string/login_password_hint"
-                android:imeOptions="actionGo"
+                android:imeOptions="actionDone"
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:onTextChanged="@{(text, start, before, count) -> vm.onPasswordChanged(text)}"
@@ -65,12 +64,13 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/login_username"
+                app:onKeyboardDone="@{() -> vm.login()}"
             />
             <Button
                 android:id="@+id/login_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:enabled="@{!vm.loginRequest &amp;&amp; vm.isLoginValid}"
+                android:enabled="@{!safeUnbox(vm.loginRequest) &amp;&amp; safeUnbox(vm.isLoginValid)}"
                 android:onClick="@{() -> vm.login()}"
                 android:text="@string/login_button_title"
                 android:textAllCaps="false"
@@ -86,7 +86,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:indeterminate="true"
-            android:visibility="@{vm.loginRequest ? View.VISIBLE : View.GONE}"
+            android:visibility="@{safeUnbox(vm.loginRequest) ? View.VISIBLE : View.GONE}"
         />
     </FrameLayout>
 </layout>
