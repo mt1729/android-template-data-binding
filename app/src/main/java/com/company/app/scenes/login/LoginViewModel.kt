@@ -1,15 +1,19 @@
 package com.company.app.scenes.login
 
 import androidx.annotation.StringRes
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.company.app.R
 import com.company.app.app.PreferenceStore
 import com.company.app.database.User
 import com.company.app.network.Result
 import com.company.app.network.StatusCodes
 import com.company.app.viewModel.LiveEvent
-import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
+import kotlinx.coroutines.launch
 
 class LoginViewModel(
     private val prefs: PreferenceStore,
@@ -62,7 +66,7 @@ class LoginViewModel(
         }
     }
 
-    private fun isLoginValid(username: String?, password: String?) : Boolean {
+    private fun isLoginValid(username: String?, password: String?): Boolean {
         return username != null && username.isNotBlank() && password != null && password.isNotBlank()
     }
 

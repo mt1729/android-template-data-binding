@@ -2,7 +2,6 @@ package com.company.app.network
 
 import com.company.app.database.User
 import retrofit2.Response
-import java.lang.RuntimeException
 
 // The intention here is to have each test override each call/function as needed
 open class TestRestApi : RestApi {
