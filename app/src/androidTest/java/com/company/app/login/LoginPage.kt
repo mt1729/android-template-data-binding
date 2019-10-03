@@ -1,7 +1,9 @@
 package com.company.app.login
 
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.ViewAction
 import androidx.test.espresso.ViewInteraction
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.company.app.R
@@ -23,9 +25,6 @@ object LoginPage {
         usernameInput.perform(clearText()).perform(typeText(username))
         passwordInput.perform(clearText()).perform(typeText(password))
 
-        // TODO: - Use IMEAction action to click software keyboard instead
-        closeSoftKeyboard()
-
-        loginButton.perform(click())
+        pressImeActionButton()
     }
 }
