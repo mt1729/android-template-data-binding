@@ -1,10 +1,7 @@
 package com.company.app.scenes.login
 
 import androidx.annotation.StringRes
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.company.app.R
 import com.company.app.app.PreferenceStore
 import com.company.app.database.User
@@ -21,12 +18,19 @@ class LoginViewModel(
 ) : ViewModel() {
     private val _username = MutableLiveData<String>().also { it.value = prefs.username ?: "" }
     private val _password = MutableLiveData<String>().also { it.value = "" }
-    private val _loginRequest = MutableLiveData<Boolean>()
+
+    private val _isLoginValid = MediatorLiveData<Boolean>().also {
+        it.addSource(_username) { username -> it.value = isLoginValid(username, _password.value) }
+        it.addSource(_password) { password -> it.value = isLoginValid(_username.value, password) }
+    }
+
+    private val _loginRequest = MutableLiveData<Boolean>().also { it.value = false }
     private val _loginSuccess = LiveEvent<User>()
     private val _loginFailure = LiveEvent<@StringRes Int>()
 
     val username: LiveData<String> = _username
     val password: LiveData<String> = _password
+    val isLoginValid: LiveData<Boolean> = _isLoginValid
     val loginRequest: LiveData<Boolean> = _loginRequest
     val loginSuccess: LiveData<User> = _loginSuccess
     val loginFailure: LiveData<Int> = _loginFailure
@@ -34,13 +38,9 @@ class LoginViewModel(
     fun login() = viewModelScope.launch(coroutineCtx) {
         if (_loginRequest.value == true) { return@launch }
 
-        // TODO: - Empty username unit test
-        // TODO: - Empty password unit test
-
-        // TODO: - Wrap all request/success/failure models in a 'LiveDataStatus' class
         val username = _username.value
         val password = _password.value
-        if (username == null || username.isBlank() || password == null || password.isBlank()) {
+        if (username == null || password == null || !isLoginValid(username, password)) {
             _loginFailure.postValue(R.string.login_fields_required)
             return@launch
         }
@@ -60,6 +60,10 @@ class LoginViewModel(
                 _loginFailure.postValue(R.string.error_generic)
             }
         }
+    }
+
+    private fun isLoginValid(username: String?, password: String?) : Boolean {
+        return username != null && username.isNotBlank() && password != null && password.isNotBlank()
     }
 
     fun onUsernameChanged(s: CharSequence) {

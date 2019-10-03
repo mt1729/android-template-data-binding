@@ -1,91 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
     <data>
-        <import type="android.view.View"/>
+        <import
+            type="android.view.View"
+        />
         <variable
             name="vm"
             type="com.company.app.scenes.login.LoginViewModel"
         />
     </data>
-
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="match_parent"
+        >
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/pad_l">
-
+            android:padding="@dimen/pad_l"
+            >
             <TextView
                 android:id="@+id/login_header"
-                android:text="@string/app_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:text="@string/app_name"
                 android:textStyle="bold"
-                app:layout_constraintVertical_chainStyle="packed"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/login_username"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
             />
             <EditText
                 android:id="@+id/login_username"
-                android:hint="@string/login_username_hint"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="@{!vm.loginRequest}"
+                android:hint="@string/login_username_hint"
                 android:inputType="text"
                 android:maxLines="1"
-                android:enabled="@{!safeUnbox(vm.loginRequest)}"
-                android:text="@{vm.username}"
                 android:onTextChanged="@{(text, start, before, count) -> vm.onUsernameChanged(text)}"
-                app:layout_constraintTop_toBottomOf="@id/login_header"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@{vm.username}"
                 app:layout_constraintBottom_toTopOf="@id/login_password"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/login_header"
             />
             <!-- TODO: - Add BindingAdapter for keyboard OK handling -->
             <EditText
                 android:id="@+id/login_password"
-                android:hint="@string/login_password_hint"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="@{!vm.loginRequest}"
+                android:hint="@string/login_password_hint"
+                android:imeOptions="actionGo"
                 android:inputType="textPassword"
                 android:maxLines="1"
-                android:enabled="@{!safeUnbox(vm.loginRequest)}"
-                android:text="@{vm.password}"
                 android:onTextChanged="@{(text, start, before, count) -> vm.onPasswordChanged(text)}"
-                app:layout_constraintTop_toBottomOf="@id/login_username"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@{vm.password}"
                 app:layout_constraintBottom_toTopOf="@id/login_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/login_username"
             />
             <Button
                 android:id="@+id/login_button"
-                android:text="@string/login_button_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAllCaps="false"
+                android:enabled="@{!vm.loginRequest &amp;&amp; vm.isLoginValid}"
                 android:onClick="@{() -> vm.login()}"
-                android:enabled="@{!safeUnbox(vm.loginRequest) &amp;&amp; !vm.username.isEmpty() &amp;&amp; !vm.password.isEmpty()}"
-                app:layout_constraintTop_toBottomOf="@id/login_password"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@string/login_button_title"
+                android:textAllCaps="false"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/login_password"
             />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
         <ProgressBar
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:id="@+id/login_progress"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:indeterminate="true"
-            android:visibility="@{safeUnbox(vm.loginRequest) ? View.VISIBLE : View.GONE}"
+            android:visibility="@{vm.loginRequest ? View.VISIBLE : View.GONE}"
         />
     </FrameLayout>
 </layout>
