@@ -20,8 +20,8 @@ class LoginRepository(
 
             resBody?.let { prefs.username = username }
 
-            return when (resBody) {
-                checkNotNull(resBody) -> Result.Success(resBody)
+            return when {
+                resBody != null -> Result.Success(resBody)
                 else -> Result.Failure(resCode)
             }
         } catch (err: IOException) {
