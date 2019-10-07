@@ -13,14 +13,17 @@ class LoginRepository(
     suspend fun login(username: String, password: String): Result<User> {
         try {
             val reqBody = RestApi.LoginBody(username, password)
+
             val res = api.login(reqBody)
+            val resBody = res.body()
+            val resCode = res.code()
 
-            res.body()?.let {
-                prefs.username = username
-                return@login Result.Success(it)
+            resBody?.let { prefs.username = username }
+
+            return when (resBody) {
+                checkNotNull(resBody) -> Result.Success(resBody)
+                else -> Result.Failure(resCode)
             }
-
-            return Result.Failure(res.code())
         } catch (err: IOException) {
             return Result.Error(err)
         }

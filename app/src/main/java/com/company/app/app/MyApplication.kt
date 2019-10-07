@@ -7,6 +7,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
 class MyApplication : Application() {
+    // TODO: - Dynamic feature modularization (figure out what needs to be in core)
     override fun onCreate() {
         super.onCreate()
 
