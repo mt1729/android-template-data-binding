@@ -11,12 +11,12 @@ def getProperties = { filePath ->
 }
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
 
     defaultConfig {
         applicationId "com.company.app"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -45,36 +45,36 @@ android {
         }
     }
 
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding true
     }
 
     testOptions {
-        unitTests.returnDefaultValues = true
+        unitTests.returnDefaultValues true
     }
 }
 
 // For use with Parcelize
-androidExtensions { experimental = true }
+androidExtensions { experimental true }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     // Kotlin
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // Common Views
-    implementation 'com.google.android.material:material:1.1.0-alpha10'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'com.google.android.material:material:1.3.0-alpha02'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
 
     // Architecture Components
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'android.arch.navigation:navigation-fragment-ktx:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0-alpha05'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha05'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0-alpha07'
 
     // LeakCanary
     implementation 'com.squareup.leakcanary:leakcanary-android:2.0-alpha-2'
@@ -93,10 +93,10 @@ dependencies {
     testImplementation 'android.arch.core:core-testing:1.1.1'
 
     androidTestImplementation 'org.koin:koin-test:2.0.1'
-    androidTestImplementation 'androidx.test:rules:1.2.0'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test:rules:1.3.0'
+    androidTestImplementation 'androidx.test:runner:1.3.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     androidTestImplementation 'com.jakewharton.espresso:okhttp3-idling-resource:1.0.0'
 }
 
