@@ -6,6 +6,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Observer
 
+// TODO: - See if LiveData provides a `dropFirst` equivalent instead
 class LiveEvent<T> : MediatorLiveData<T>() {
     private val observers = ArraySet<ObserverWrapper<in T>>()
 
@@ -18,7 +19,8 @@ class LiveEvent<T> : MediatorLiveData<T>() {
 
     @MainThread
     override fun removeObserver(observer: Observer<in T>) {
-        if (observers.remove(observer)) {
+        val isWrapper = observer is ObserverWrapper
+        if (isWrapper && observers.remove(observer as ObserverWrapper)) {
             super.removeObserver(observer)
             return
         }

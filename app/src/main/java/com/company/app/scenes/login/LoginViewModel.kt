@@ -1,6 +1,5 @@
 package com.company.app.scenes.login
 
-import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,21 +15,22 @@ import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
-    private val prefs: PreferenceStore,
+    prefs: PreferenceStore,
     private val loginRepo: LoginRepository,
     private val coroutineCtx: CoroutineContext
 ) : ViewModel() {
-    private val _username = MutableLiveData<String>().also { it.value = prefs.username ?: "" }
-    private val _password = MutableLiveData<String>().also { it.value = "" }
+    private val _username = MutableLiveData(prefs.username ?: "")
+    private val _password = MutableLiveData("")
 
     private val _isLoginValid = MediatorLiveData<Boolean>().also {
         it.addSource(_username) { username -> it.value = isLoginValid(username, _password.value) }
         it.addSource(_password) { password -> it.value = isLoginValid(_username.value, password) }
     }
 
-    private val _loginRequest = MutableLiveData<Boolean>().also { it.value = false }
+    // TODO: - 'RemoteLiveData' container to capture common network sequences (req, res, err)
+    private val _loginRequest = MutableLiveData(false)
     private val _loginSuccess = LiveEvent<User>()
-    private val _loginFailure = LiveEvent<@StringRes Int>()
+    private val _loginFailure = LiveEvent<Int>()
 
     val username: LiveData<String> = _username
     val password: LiveData<String> = _password
@@ -40,7 +40,9 @@ class LoginViewModel(
     val loginFailure: LiveData<Int> = _loginFailure
 
     fun login() = viewModelScope.launch(coroutineCtx) {
-        if (_loginRequest.value == true) { return@launch }
+        if (_loginRequest.value == true) {
+            return@launch
+        }
 
         val username = _username.value
         val password = _password.value

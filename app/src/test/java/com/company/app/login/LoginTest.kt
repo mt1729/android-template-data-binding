@@ -55,8 +55,8 @@ class LoginTest : KoinTest {
         vm.onPasswordChanged("testPassword")
         runBlocking { vm.login().join() }
 
-        val user = vm.loginSuccess.value!!
-        assertEquals(testUserId, user.id)
+        val user = vm.loginSuccess.value
+        assertEquals(testUserId, user?.id)
     }
 
     @Test
@@ -77,7 +77,7 @@ class LoginTest : KoinTest {
         vm.onPasswordChanged("testPassword")
         runBlocking { vm.login().join() }
 
-        assertEquals(R.string.login_failed, vm.loginFailure.value!!)
+        assertEquals(R.string.login_failed, vm.loginFailure.value)
     }
 
     @Test
@@ -99,6 +99,6 @@ class LoginTest : KoinTest {
         vm.onPasswordChanged("testPassword")
         runBlocking { vm.login().join() }
 
-        assertEquals(R.string.error_generic, vm.loginFailure.value!!)
+        assertEquals(R.string.error_generic, vm.loginFailure.value)
     }
 }

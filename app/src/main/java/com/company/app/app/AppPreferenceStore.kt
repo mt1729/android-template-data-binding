@@ -3,7 +3,7 @@ package com.company.app.app
 import android.app.Activity
 import android.content.Context
 
-class MyPreferenceStore(
+class AppPreferenceStore(
     ctx: Context
 ) : PreferenceStore {
     companion object {

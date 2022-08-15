@@ -5,8 +5,8 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
 import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.rule.ActivityTestRule
 import com.company.app.R
 import com.company.app.app.MainActivity
 import com.company.app.app.PreferenceStore
@@ -29,21 +29,23 @@ class LoginIntegrationTest : KoinTest {
     private var idlingResource: OkHttp3IdlingResource? = null
 
     @get:Rule
-    val activityRule = object : ActivityTestRule<MainActivity>(MainActivity::class.java) {
-        override fun beforeActivityLaunched() {
-            // Reset state of app through this callback
-            prefs.username = null
-        }
-    }
+    val activityRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Before
     fun before() {
+        // Reset state of app through this callback
+        activityRule.scenario.onActivity {
+            prefs.username = null
+        }
+
         idlingResource = OkHttp3IdlingResource.create("OkHttp", httpClient)
         IdlingRegistry.getInstance().register(idlingResource)
     }
 
     @After
     fun after() {
+        activityRule.scenario.close()
+
         IdlingRegistry.getInstance().unregister(idlingResource)
     }
 

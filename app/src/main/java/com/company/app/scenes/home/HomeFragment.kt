@@ -10,14 +10,24 @@ import com.company.app.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
     private val args: HomeFragmentArgs by navArgs()
+    private var binding: FragmentHomeBinding? = null
 
-    private lateinit var binding: FragmentHomeBinding
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        val binding = FragmentHomeBinding.inflate(inflater, container, false)
+            .also { binding = it }
         binding.args = args
         binding.lifecycleOwner = viewLifecycleOwner
 
         return binding.root
+    }
+
+    // Prevent memory retention of previously inflated binding
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
 }

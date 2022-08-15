@@ -6,18 +6,17 @@ import com.company.app.scenes.login.loginModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
-class MyApplication : Application() {
-    // TODO: - Dynamic feature modularization (figure out what needs to be in core)
+class AppApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
         val modules = listOf(
-            appModule, networkModule,
+            coreModule, networkModule,
             loginModule
         )
 
         startKoin {
-            androidContext(this@MyApplication)
+            androidContext(this@AppApplication)
             modules(modules)
         }
     }
