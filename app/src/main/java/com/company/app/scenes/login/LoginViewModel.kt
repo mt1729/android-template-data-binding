@@ -11,8 +11,8 @@ import com.company.app.database.User
 import com.company.app.network.Result
 import com.company.app.network.StatusCodes
 import com.company.app.viewModel.LiveEvent
-import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
 class LoginViewModel(
     prefs: PreferenceStore,
