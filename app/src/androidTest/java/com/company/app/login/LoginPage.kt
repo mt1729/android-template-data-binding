@@ -15,16 +15,15 @@ object LoginPage {
     val passwordInput: ViewInteraction
         get() = onView(withId(R.id.login_password))
 
-    val loginButton: ViewInteraction
-        get() = onView(withId(R.id.login_button))
-
     val snackbar: ViewInteraction
         get() = onView(withId(com.google.android.material.R.id.snackbar_text))
 
     fun login(username: String, password: String) {
-        usernameInput.perform(clearText()).perform(typeText(username))
-        passwordInput.perform(clearText()).perform(typeText(password))
+        usernameInput.perform(clearText())
+            .perform(typeText(username))
 
-        pressImeActionButton()
+        passwordInput.perform(clearText())
+            .perform(typeText(password))
+            .perform(pressImeActionButton())
     }
 }

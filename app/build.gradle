@@ -11,12 +11,12 @@ def getProperties = { filePath ->
 }
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
 
     defaultConfig {
         applicationId "com.company.app"
-        minSdkVersion 21
-        targetSdkVersion 32
+        minSdkVersion 24
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -88,5 +88,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     androidTestImplementation "io.insert-koin:koin-test:3.2.0"
+
+    // TODO: - Jetifier could be disabled (build speed increase), though this dependency is still using support libs. Convert to AndroidX or just skip altogether, since this seems to be abandoned
     androidTestImplementation 'com.jakewharton.espresso:okhttp3-idling-resource:1.0.0'
 }

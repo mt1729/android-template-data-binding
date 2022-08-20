@@ -53,13 +53,17 @@ class LoginIntegrationTest : KoinTest {
     fun loginFailure() {
         LoginPage.login("badUsername", "badPassword")
 
-        LoginPage.snackbar.check(matches(withText(R.string.login_failed)))
+        LoginPage.snackbar.check(
+            matches(withText(R.string.login_failed))
+        )
     }
 
     @Test
     fun loginSuccess() {
         LoginPage.login("testUsername", "testPassword")
 
-        HomePage.welcomeMessage.check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+        HomePage.welcomeMessage.check(
+            matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE))
+        )
     }
 }
